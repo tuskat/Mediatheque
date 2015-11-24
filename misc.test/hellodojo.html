@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+    <!-- load Dojo -->
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" ; data-dojo-config="async: true"></script>
+    <script src="tmdbAPI.js"></script>
+    <script src="Assets.js"></script>
+
+    <script>
+/*
+        function myFunction()
+        {
+            require([
+                'dojo/dom',
+                'dojo/domReady'
+                ],
+        
+                function () {
+                    var p1 = new Promise(function(resolve, reject) {
+                    resolve("Success!");
+                    // or
+                    // reject ("Error!");
+                    });
+                    
+                    p1.then(function(value) {
+                    console.log(value); // Success!
+                    }, function(reason) {
+                    console.log(reason); // Error!
+                    });
+                });
+        }
+
+        function goto()
+        {
+            require([
+                'dojo/dom',
+                'dojo/domReady'
+                ],
+                function () {
+                    var test = new Promise(function(resolve, reject) {
+                        resolve("see you in hell motherfuck");
+                        //or reject and it's something else; It's supposed to be a function like I dunno the Ajax call maybe?
+        
+                    });
+                    test.then(function(value) {
+                        console.log(value);
+                        setTimeout(function(){ window.location="page2.html";}, 3000);
+                    });
+                }
+            );
+        } */
+        
+        var Url ="https://api.themoviedb.org/3/";
+        var api_key = "ac4cb421007b24e9ae363523b72adb5a"; 
+        var db_api = new tmdbAPI(api_key, Url);
+        
+ /*    db_api.searchMovie("filth");
+       db_api.getPoster(85889,"movie"); */
+    </script>
+</head>
+<body>
+    <!--<h1 id="greeting">Hello</h1>
+    
+    <button type="button" id="myBtn" onclick="myFunction()">Try it</button><br>
+    <button type="button" id="Here" onclick="goto()">I'll be over here</button>-->
+    <input id="movie" type="text" /><button>Search</button>
+   
+</body>
+</html>

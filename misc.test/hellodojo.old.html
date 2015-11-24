@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+</head>
+<body>
+    <h1 id="greeting">Hello</h1>
+
+
+
+<button type="button" id="myBtn" onclick="myFunction()">Try it</button><br>
+<button type="button" id="Here" onclick="goto()">I'll be over here</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- configure Dojo -->
+    <script>
+
+
+        // Instead of using data-dojo-config, we're creating a dojoConfig
+        // object *before* we load dojo.js; they're functionally identical,
+        // it's just easier to read this approach with a larger configuration.
+        var dojoConfig = {
+            async: true,
+            // This code registers the correct location of the "demo"
+            // package so we can load Dojo from the CDN whilst still
+            // being able to load local modules
+            packages: [{
+                name: "demo",
+                location: location.pathname.replace(/\/[^/]*$/, '') + '/demo'
+            }]
+        };
+    </script>
+    <!-- load Dojo -->
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+
+    <script>
+
+
+require([
+    'dojo/dom',
+    'dojo/domReady!'
+], function (dom) {
+    var greeting = dom.byId('greeting');
+    greeting.innerHTML += ' from Dojo!';
+});
+
+
+        require([
+            'demo/myModule'
+        ], function (myModule) {
+            myModule.setText('greeting', 'Surprise motherfuck!');
+
+            setTimeout(function () {
+                myModule.restoreText('greeting');
+            }, 3000);
+        });
+
+
+
+        require([
+    'dojo/dom',
+    'dojo/fx',
+    'dojo/domReady!'
+], function (dom, fx) {
+    // The piece we had before...
+    var greeting = dom.byId('greeting');
+    greeting.innerHTML += ' from Dojo!';
+
+    // ...but now, with an animation!
+    fx.slideTo({
+        node: greeting,
+        top: 100,
+        left: 200
+    }).play();
+});
+
+
+function myFunction()
+{
+    require([
+        'dojo/dom',
+        'dojo/domReady'
+        ],
+
+         function () {
+var p1 = new Promise(function(resolve, reject) {
+  resolve("Success!");
+  // or
+  // reject ("Error!");
+});
+
+p1.then(function(value) {
+  console.log(value); // Success!
+}, function(reason) {
+  console.log(reason); // Error!
+});
+
+    });
+}
+
+function goto()
+{
+    require([
+        'dojo/dom',
+        'dojo/domReady'
+        ],
+        function () {
+            var test = new Promise(function(resolve, reject) {
+                resolve("see you in hell motherfuck");
+                //or reject and it's something else; It's supposed to be a function like I dunno the Ajax call maybe?
+
+            });
+            test.then(function(value) {
+                console.log(value);
+               setTimeout(function(){ window.location="page2.html";}, 3000);
+            });
+        }
+        )
+} 
+    </script>
+</body>
+</html>
