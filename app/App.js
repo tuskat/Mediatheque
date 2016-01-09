@@ -39,7 +39,7 @@
 			link.setAttribute("onclick", "detailAssets(\""+data.results[id].title+"\");");
 			
 			var elem =  document.createElement("img");
-		  	elem.setAttribute("src", UrlImg+"original/"+success.posters[0].file_path+"?api_key="+api_key);	  
+		  	elem.setAttribute("src", UrlImg+"w154/"+success.posters[0].file_path+"?api_key="+api_key);	  
 		  	
 			  link.appendChild(elem);
 			  div.appendChild(link);
