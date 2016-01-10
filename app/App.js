@@ -21,7 +21,7 @@
 	popularMovies.then(function(success){
 		// -- Affichage Posters --//
 	var part = "popularMovies";
-		 for(var i = 0; i <= 13; i++)
+		 for(var i = 0; (i <= 13 || i < success.results.length); i++)
 		 {
 			var id = 0;
 			var data = success;
@@ -62,23 +62,16 @@
 		 // -- Affichage Posters --//
 	var part = "recentMovies";
 		
-		 for(var i = 0; i <= success.results.length; i++)
-		 {
-		
-			 if (typeof success.results !=='undefined')
-			 {
-				 
-			 var added = 0;
+		 for(var j = 0; (j <= 7 || j < success.results.length); j++)
+		 {			 
+		//	 var added = 0;
 			 var id2 = 0;
 			var data = success;
 			
-			var movie = tmdbAPI.getPoster(success.results[i].id, "movie");
+			var movie = tmdbAPI.getPoster(success.results[j].id, "movie");
 			movie.then(function(success){
 		
-			if(typeof success.posters !== 'undefined' )
-			{		
-			if(typeof success.posters[0].file_path !== 'undefined' )
-				{
+		
 					var div = document.createElement("div");
 			div.setAttribute("id", "poster"+(id2));
 			div.setAttribute("class", "poster");
@@ -91,20 +84,13 @@
 			  div.appendChild(link);
 			  
 			document.getElementById(part).appendChild(div);
-			added++;  	
-			}
-				  
-			 
-			
-				}
+		//	added++;  		 				
 				id2++;	
 		 	},
 			function (fail){
 			
 			});
-			if (added == 14)
-				break;
-		 }
+		 
 		 }
 	//
 		// insertPoster(success, "recentMovies");			
@@ -118,6 +104,65 @@
 	 // Insert a poster
 //	 require(["dojo/domReady!"],
 
+  function search()
+    {
+        	require([	
+		"app/TmdbAPI"	
+		],
+		 function(TmdbAPI){
+	   	var tmdbAPI = new TmdbAPI(Url, api_key);
+           
+           
+         var search = document.getElementById("assetSearch").value;  
+        var searchedMovies = tmdbAPI.searchMovie(search);
+        console.log(search);
+        //console.log(myNode.innerHTML);
+        searchedMovies.then(function(success){
+		// -- Affichage Posters --//
+	       var part = "searchMovies";
+		 for(var i = 0; i < success.results.length; i++)
+		 {
+			var id = 0;
+			var data = success;
+			
+          //  console.dir(success);
+			var movie = tmdbAPI.getPoster(success.results[i].id, "movie");
+			movie.then(function(success){
+				
+				//console.dir(success);
+			
+			var div = document.createElement("div");
+			div.setAttribute("id", "poster"+id);
+			div.setAttribute("class", "poster");
+			
+			var link = document.createElement("a");
+			link.setAttribute("onclick", "detailAssets(\""+data.results[id].title+"\");");
+			
+			var elem =  document.createElement("img");
+		  	elem.setAttribute("src", UrlImg+"w154/"+success.posters[0].file_path+"?api_key="+api_key);	  
+		  	
+			  link.appendChild(elem);
+			  div.appendChild(link);
+			  
+			document.getElementById(part).appendChild(div);
+			id++;
+		 	},
+			function (fail){
+			
+			});
+			
+		 }
+         	document.getElementById("popularMovies").style.display = 'none';
+    	    document.getElementById("recentMovies").style.display = 'none';
+		    document.getElementById("assetDetails").style.display = 'none';
+            document.getElementById("searchMovies").style.display = 'block';
+	//
+	},
+	 function(fail){
+		 
+	 });  
+    });
+    }
 	function detailAssets(Id)
 	{
 		
@@ -134,6 +179,7 @@
 		console.dir(success);
 		document.getElementById("popularMovies").style.display = 'none';
     	document.getElementById("recentMovies").style.display = 'none';
+        document.getElementById("searchMovies").style.display = 'none';
 		document.getElementById("assetDetails").style.display = 'block';
 		
 		
@@ -204,29 +250,29 @@ infos.innerHTML = before + date + after + month + "/" +year +"<br>";
 			btnBar.setAttribute("class", "button-bar");
 			
 			var btnTrailer = document.createElement("a");
-			var btnMovie = document.createElement("a");
+//			var btnMovie = document.createElement("a");
 			var btnBack = document.createElement("a");
 			
 			btnTrailer.setAttribute("class", "green-sea-flat-button detailsBtn");
-			btnMovie.setAttribute("class", "green-sea-flat-button detailsBtn");
+	//		btnMovie.setAttribute("class", "green-sea-flat-button detailsBtn");
 			btnBack.setAttribute("class", "green-sea-flat-button detailsBtn");
 			
 			btnTrailer.setAttribute("href", "#trailer();");
-			btnMovie.setAttribute("href", "#movie()");
+//			btnMovie.setAttribute("href", "#movie()");
 			btnBack.setAttribute("onclick", "backToHub();");
 			
 			
 			
 			var ltrailer = document.createTextNode("Trailer");
-			var lmovie = document.createTextNode("Watch Now");
+		//	var lmovie = document.createTextNode("Watch Now");
 			var lback = document.createTextNode("Back to Hub");
 			
 			btnTrailer.appendChild(ltrailer);
-			btnMovie.appendChild(lmovie);
+//			btnMovie.appendChild(lmovie);
 			btnBack.appendChild(lback);
 			
 			btnBar.appendChild(btnTrailer);
-			btnBar.appendChild(btnMovie);
+//			btnBar.appendChild(btnMovie);
 			btnBar.appendChild(btnBack);
 			
 			
@@ -255,6 +301,8 @@ infos.innerHTML = before + date + after + month + "/" +year +"<br>";
 		document.getElementById("assetDetails").style.display = 'none';
 	}
 
+
+  
 		/* 	<!--
 			<div class="bigPoster">
 			 <img class="picture" src="images/poster.jpg" alt="Some poster"  ismap>
