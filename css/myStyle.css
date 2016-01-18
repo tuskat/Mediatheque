@@ -12,10 +12,16 @@
 /* Basics */
 
 body {
+    padding-top: 70px;
     font-family: Quicksand-Light;
     margin : 0px;
     width: 100%;
-    
+    height: 100%;
+      background: -webkit-linear-gradient(135deg,#141E1E,#0F0F0A); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(135deg,#141E1E,#0F0F0A); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(135deg,#141E1E,#0F0F0A); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(135deg,#141E1E,#0F0F0A); /* Standard syntax (must be last) */
+    z-index: -1;
 }
 
 h3 {
@@ -29,7 +35,7 @@ h1 {
     
       text-shadow: 1px 1px 5px #334C4C;
 }
-
+/*
 ul {
   text-align: left;
   display: inline;
@@ -88,18 +94,15 @@ ul li:hover ul {
   opacity: 1;
   visibility: visible;
 }
-
+*/
 .main-body {
     position : relative;
-    padding-top : 50px;
-    
+   
+    padding-top: 50px;
     width : auto;
     height : 100%;
    
-    background: -webkit-linear-gradient(135deg,#141E1E,#0F0F0A); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(135deg,#141E1E,#0F0F0A); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(135deg,#141E1E,#0F0F0A); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(135deg,#141E1E,#0F0F0A); /* Standard syntax (must be last) */
+  
     z-index: 0;
 }
 
@@ -144,8 +147,7 @@ ul li:hover ul {
   
     margin : 10px;
     border: 2px solid #334C4C;
-    height : 200px;
-    width : 150px;
+   
     box-shadow : 2px 2px 2px rgba(0, 0, 0, 0.5); 
 }
 
@@ -163,8 +165,7 @@ ul li:hover ul {
 }
 
 .poster img {
-   height : 200px;
-   width : 150px;
+  
   
  position:relative;
   z-index:-1;
@@ -254,7 +255,7 @@ ul li:hover ul {
       margin-top : -10px;
     
 }
-
+/*
 .footer {
     background: #0F0F0A;
     width : 100%;
@@ -262,7 +263,7 @@ ul li:hover ul {
     
     clear: both;
 }
-
+*/
 .searchbox {
    
   padding: 6px 15px 6px 15px;
@@ -339,7 +340,7 @@ ul li:hover ul {
   -webkit-transform: rotateZ(-45deg)   ;
   transform: rotateZ(-45deg)   ;
 }
-
+/*
 .btn {
   background: #334C4C;
   background-image: -webkit-linear-gradient(top, #334C4C, #141E1E);
@@ -365,7 +366,7 @@ ul li:hover ul {
   background-image: linear-gradient(to bottom, #577d7d, #141E1E);
   text-decoration: none;
 }
-
+*/
 .btn2 {
   background: #334C4C;
   background-image: -webkit-linear-gradient(top, #334C4C, #141E1E);
@@ -430,5 +431,14 @@ ul li:hover ul {
     margin-right : 20px;
     bottom : 0;
     right : 0; 
+      background: #0F0F0A;
+}
+
+#topSearch {
+    margin-top:1em;
+}
+
+.hided {
+    visibility: hidden;
 }
 /* END */

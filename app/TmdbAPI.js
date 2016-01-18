@@ -21,10 +21,10 @@
        this.url = api_url;
     },
 //REQUESTS
- getTMDBJson : function(Url, arguments, api_key)
+ getTMDBJson : function(Url, arg, api_key)
 {
 //console.log(Url + arguments + "&api_key=" + api_key);
-  return(script.get(Url + arguments + "&api_key=" + api_key, {
+  return(script.get(Url + arg + "&api_key=" + api_key, {
     jsonp: "callback", 
   }).then(function(response){
     
@@ -45,11 +45,11 @@
   
 },
 // -- Probably merge later --
- getTMDBPictureJson : function(Url, arguments, api_key)
+ getTMDBPictureJson : function(Url, arg, api_key)
 {
 //console.log(Url + arguments + "?api_key=" + api_key);
 
- return(script.get(Url + arguments + "?api_key=" + api_key, {
+ return(script.get(Url + arg + "?api_key=" + api_key, {
     jsonp: "callback", 
   }).then(function(response){
    
@@ -120,7 +120,7 @@ getRecentMovies : function() {
 var d = new Date();
 var now = d.yyyymmdd();
 
-console.log(now);
+//console.log(now);
 
     var argument = "discover/" + this.movies + "?sort_by=release_date.desc&release_date.lte=" + now;
     var result;
