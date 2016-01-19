@@ -1,35 +1,27 @@
 <!DOCTYPE html>
 <html>
 <header>
-	<meta charset="utf-8">
-       <title>Hub - MediaTusk</title>
-    
-	<meta name="description" content="It's a page with movies description on it."/>
-	<meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <title>Hub - MediaTusk</title>
 
-	<!-- Loading Font Awesome Icons -->
+    <meta name="description" content="It's a page with movies description on it." />
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Font Awesome Icons -->
     <link rel="stylesheet" href="css/animate.min.css">
-	<link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
 
-	<!-- Loading Bootstrap -->
-	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-	<link href="bootstrap/css/prettify.css" rel="stylesheet">
+    <!-- Loading Bootstrap -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/prettify.css" rel="stylesheet">
 
-	<!-- Loading Drunken Parrot UI -->
-	<!--<link href="css/drunken-parrot.css" rel="stylesheet">
-	<!--<link href="css/docs.css" rel="stylesheet">-->
-	
-	<link rel="stylesheet" href="css/myStyle.css">
+    <link rel="stylesheet" href="css/myStyle.css">
     <!-- load Dojo -->
     <script>
-        // Instead of using data-dojo-config, we're creating a dojoConfig
-        // object *before* we load dojo.js; they're functionally identical,
-        // it's just easier to read this approach with a larger configuration.
+     
         var dojoConfig = {
             async: true,
-            // This code registers the correct location of the "demo"
-            // package so we can load Dojo from the CDN whilst still
-            // being able to load local modules
+          
             packages: [{
                 name: "app",
                 location: location.pathname.replace(/\/[^/]*$/, '') + '/app'
@@ -37,87 +29,69 @@
         };
     </script>
     <!-- load Dojo -->
-  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
 
-   
-  <script src="app/App.js"></script>
+
+    <script src="app/App.js"></script>
     <!--<script src="app/Tools.js"></script>-->
-	
-</header>	
+
+</header>
+
 <body>
-<!-- Header -->	
-<nav class="navbar navbar-inverse navbar-fixed-top">
-     
-        
-    <a class="navbar-brand hidden-xxs" href="#" onClick="exitSearch()" >MediaTusk</a>
-    <div class="navbar-form navbar-left ">
-   
-     
-    <input type="text" class="form-control header-movie-form" id="assetSearch" name="assetSearch" placeholder="Search Movies" onkeypress="return searchEnter(event)">
-  
-  <button type="button" class="form-control btn btn-success header-movie-form" onclick="search()">Search</button> 
-  
- </div>
+    <!-- Header -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
 
 
-  <p class="navbar-text navbar-right hidden-xs hidden-xxs">Welcome Guest!</p>
-    <!--
- <div class="navbar-header">
-   <ul class="nav navbar-nav">
-     <li>
-        <input type="text" class="form-control"  id="assetSearch" name="assetSearch" placeholder="Search Movies">
-      </li>
-      <li>  
-        <button type="button" class="btn btn-success" onclick="search()">Search</button>  
-        </li>
-         </ul>
-       </div>
-       -->
-</nav>
-    <!--</div>-->
+        <a class="navbar-brand hidden-xxs" href="#" onClick="exitSearch()">MediaTusk</a>
+        <div class="navbar-form navbar-left ">
+
+
+            <input type="text" class="form-control header-movie-form" id="assetSearch" name="assetSearch" placeholder="Search Movies"
+            onkeypress="return searchEnter(event)">
+
+            <button type="button" class="form-control btn btn-success header-movie-form" onclick="search()">Search</button>
+
+        </div>
+
+
+        <p class="navbar-text navbar-right hidden-xs hidden-xxs">Welcome Guest!</p>
   
-<!-- Header End -->
-	<div class="main-body ">
-		
-		<div id="popularMovies" class="col-md12">
-		<h1 style="padding-left:0.5em;" class="animated fadeIn">POPULAR MOVIES</h1>
-	
-		</div>
-		<div id="recentMovies" class="col-md12">
-		<h1 style="padding-left:0.5em;" class="animated fadeIn">RECENT MOVIES</h1>
-		
-		</div>
-		<div id="searchMovies" class="col-md12" style="display:none"><h1 style="padding-left:0.5em;">SEARCH RESULT</h1></div>
-		<!--
-		<div id="popularSeries"></div>
-		<div id="recentSeries"></div>
-		<div id="searchSeries"></div>
-		-->
-		<div id="assetDetails" class="col-md12">
-			
-		</div>
-        
+    </nav>
+  
+    <!-- Header End -->
+    <div class="main-body ">
+
+        <div id="popularMovies" class="col-md12">
+            <h1 style="padding-left:0.5em;" class="animated fadeIn">POPULAR MOVIES</h1>
+
+        </div>
+        <div id="recentMovies" class="col-md12">
+            <h1 style="padding-left:0.5em;" class="animated fadeIn">RECENT MOVIES</h1>
+
+        </div>
+        <div id="searchMovies" class="col-md12" style="display:none">
+            <h1 style="padding-left:0.5em;">SEARCH RESULT</h1></div>
+    
+        <div id="assetDetails" class="col-md12">
+
+        </div>
+
         <div class="shadow-bottom">
-		<div class="bottom-right">
-		<span><font color="#E7E7E6">Cedric Marcellin 2016</font></span>
-	</div>
-	</div>
-	</div>
-<!-- Footer -->	
-	
-<!-- Footer End -->	
-<!-- Bootstrap core JavaScript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/checkbox.js"></script>
-	<script src="js/radio.js"></script>
-	<script src="js/bootstrap-switch.js"></script>
-	<script src="js/toolbar.js"></script>
-	<script src="js/application.js"></script>
+            <div class="bottom-right">
+                <span><font color="#E7E7E6">Cedric Marcellin 2016</font></span>
+            </div>
+        </div>
+    </div>
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/checkbox.js"></script>
+    <script src="js/radio.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
+    <script src="js/toolbar.js"></script>
+    <script src="js/application.js"></script>
 
-</body>	
-	
-	
+</body>
+
+
 </html>
