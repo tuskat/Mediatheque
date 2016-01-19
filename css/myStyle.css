@@ -35,66 +35,7 @@ h1 {
     
       text-shadow: 1px 1px 5px #334C4C;
 }
-/*
-ul {
-  text-align: left;
-  display: inline;
-  margin: 0;
-  padding: 15px 4px 17px 10px;
-  list-style: none;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-}
-ul li {
-  font: bold 12px/18px sans-serif;
-  display: inline-block;
-  margin-right: -4px;
-  position: relative;
-  padding: 8px 10px;
-  background: #fff;
-  cursor: pointer;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
-}
-ul li:hover {
-  background: #1abc9c;
-  color: #fff;
-}
-ul li ul {
-  padding: 0;
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 150px;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transiton: opacity 0.2s;
-  -moz-transition: opacity 0.2s;
-  -ms-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  -transition: opacity 0.2s;
-}
-ul li ul li { 
-  background: #1abc9c; 
-  display: block; 
-  color: #fff;
-  text-shadow: 0 -1px 0 #000;
-}
-ul li ul li:hover { background: #1abc9c; }
-ul li:hover ul {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-}
-*/
+
 .main-body {
     position : relative;
    
@@ -339,33 +280,7 @@ ul li:hover ul {
   -webkit-transform: rotateZ(-45deg)   ;
   transform: rotateZ(-45deg)   ;
 }
-/*
-.btn {
-  background: #334C4C;
-  background-image: -webkit-linear-gradient(top, #334C4C, #141E1E);
-  background-image: -moz-linear-gradient(top, #334C4C, #141E1E);
-  background-image: -ms-linear-gradient(top, #334C4C, #141E1E);
-  background-image: -o-linear-gradient(top, #334C4C, #141E1E);
-  background-image: linear-gradient(to bottom, #334C4C, #141E1E);
-  
-  
-  color: #ffffff;
-  font-size: 15px;
-  padding: 6px 15px 4px 15px;
-  text-decoration: none;
 
-}
-
-.btn:hover {
-  background: #577d7d;
-  background-image: -webkit-linear-gradient(top, #577d7d, #141E1E);
-  background-image: -moz-linear-gradient(top, #577d7d, #141E1E);
-  background-image: -ms-linear-gradient(top, #577d7d, #141E1E);
-  background-image: -o-linear-gradient(top, #577d7d, #141E1E);
-  background-image: linear-gradient(to bottom, #577d7d, #141E1E);
-  text-decoration: none;
-}
-*/
 .btn2 {
   background: #334C4C;
   background-image: -webkit-linear-gradient(top, #334C4C, #141E1E);
@@ -474,5 +389,11 @@ ul li:hover ul {
 .bigPoster img{
     width : 99%;
 }
+}
+
+#searchExit {
+    margin: 1em;
+    
+    
 }
 /* END */

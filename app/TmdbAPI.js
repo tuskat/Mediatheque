@@ -44,7 +44,7 @@
   }));
   
 },
-// -- Probably merge later --
+// -- Obsolete
  getTMDBPictureJson : function(Url, arg, api_key)
 {
 //console.log(Url + arguments + "?api_key=" + api_key);

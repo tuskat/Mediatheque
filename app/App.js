@@ -2,7 +2,7 @@
 var Url = "https://api.themoviedb.org/3/";
 var UrlImg = "http://image.tmdb.org/t/p/";
 var api_key = "ac4cb421007b24e9ae363523b72adb5a";
-
+var searchState = 0;
 //var ThumbPoster = "/w185/";
 
 require(["app/TmdbAPI",
@@ -13,24 +13,24 @@ require(["app/TmdbAPI",
 
         var popularMoviesPromise = tmdb.getPopularMovies(); // 3600, 20
       
-          popularMoviesPromise.then(function (success) {
+        popularMoviesPromise.then(function (success) {
             var partI = "popularMovies";
             getMoviesData(success.results, tmdb, partI);
             
-           //  var recentMoviesPromise = tmdb.getRecentMovies();
+            //  var recentMoviesPromise = tmdb.getRecentMovies();
             return tmdb.getRecentMovies();
         }).then(function (success) {
 
             var partII = "recentMovies";
-          //  console.dir(success);
+            //  console.dir(success);
             getMoviesData(success.results, tmdb, partII);
 
 
-        }).then(function (){
+        }).then(function () {
             $(".poster").removeClass("hided");
-                //Not working yet
+            //Not working yet
             $(".poster").addClass("fadeIn");
-       });
+        });
 
 
     });
@@ -64,100 +64,100 @@ function detailAssets(Id) {
 
                 var movieData = success;
 
-            //    var movie = tmdbAPI.getPoster(success.results[0].id, "movie");
-               // movie.then(function (success) {
+                //    var movie = tmdbAPI.getPoster(success.results[0].id, "movie");
+                // movie.then(function (success) {
 
-                    //    console.dir(movieData);
-                    var div = document.createElement("div");
-                    //div.setAttribute("id", "poster");
-                    div.setAttribute("class", "bigPoster");
+                //    console.dir(movieData);
+                var div = document.createElement("div");
+                //div.setAttribute("id", "poster");
+                div.setAttribute("class", "bigPoster");
 
-                    var img = document.createElement("img");
-                    img.setAttribute("class", "img-responsive");
-                    img.setAttribute("src", UrlImg + "w342/" + movieData.results[0].poster_path + "?api_key=" + api_key);
+                var img = document.createElement("img");
+                img.setAttribute("class", "img-responsive");
+                img.setAttribute("src", UrlImg + "w342/" + movieData.results[0].poster_path + "?api_key=" + api_key);
 
-                    div.appendChild(img);
+                div.appendChild(img);
 
-                    var divAsset = document.createElement("div");
-                    divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6 animated fadeIn")
+                var divAsset = document.createElement("div");
+                divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6 animated fadeIn")
 
 
 
-                    var title = document.createElement("h2");
-                    title.innerHTML = movieData.results[0].title;
+                var title = document.createElement("h2");
+                title.innerHTML = movieData.results[0].title;
 			
 			
-                    //title = document.innerHTML(movieData.results[0].title);
+                //title = document.innerHTML(movieData.results[0].title);
 			
-                    var infos = document.createElement("span");
+                var infos = document.createElement("span");
 
 
-                    var d = new Date(movieData.results[0].release_date);
+                var d = new Date(movieData.results[0].release_date);
 
-                    var date = d.getDate();
-                    var month = d.getMonth() + 1; //Months are zero based
+                var date = d.getDate();
+                var month = d.getMonth() + 1; //Months are zero based
 
-                    var year = d.getFullYear();
+                var year = d.getFullYear();
 
-                    var before = "";
-                    var after = "/";
+                var before = "";
+                var after = "/";
 
-                    if (date < 10)
-                        before = "0";
+                if (date < 10)
+                    before = "0";
 
-                    if (month < 10)
-                        after = "/0";
+                if (month < 10)
+                    after = "/0";
 
-                    infos.innerHTML = before + date + after + month + "/" + year + "<br>";
-
-
-                    var synopsis = document.createElement("span");
-                    synopsis.setAttribute("class", "synopsis col-xs-12 col-md-9 ");
-                    
-                    if (movieData.results[0].overview.length > 2)
-                        synopsis.innerHTML = "<hr>" + movieData.results[0].overview;
-                    else
-                      synopsis.innerHTML = "<hr> no synopsis added yet.";
-
-                    divAsset.appendChild(title);
-                    divAsset.appendChild(infos);
-                    divAsset.appendChild(synopsis);
-
-                    var btnBar = document.createElement("div");
-                    btnBar.setAttribute("class", "col-xs-12 col-md-12");
-
-                    var btnTrailer = document.createElement("a");
-                    //			var btnMovie = document.createElement("a");
-                    var btnBack = document.createElement("a");
-
-                    btnTrailer.setAttribute("class", "btn btn-success detailsBtn");
-                    //		btnMovie.setAttribute("class", "green-sea-flat-button detailsBtn");
-                    btnBack.setAttribute("class", "btn btn-success detailsBtn");
-
-                    btnTrailer.setAttribute("href", "#trailer();");
-                    //			btnMovie.setAttribute("href", "#movie()");
-                    btnBack.setAttribute("onclick", "backToHub();");
+                infos.innerHTML = before + date + after + month + "/" + year + "<br>";
 
 
+                var synopsis = document.createElement("span");
+                synopsis.setAttribute("class", "synopsis col-xs-12 col-md-9 ");
 
-                    var ltrailer = document.createTextNode("Trailer");
-                    //	var lmovie = document.createTextNode("Watch Now");
-                    var lback = document.createTextNode("Back to Hub");
+                if (movieData.results[0].overview.length > 2)
+                    synopsis.innerHTML = "<hr>" + movieData.results[0].overview;
+                else
+                    synopsis.innerHTML = "<hr> no synopsis added yet.";
 
-                    btnTrailer.appendChild(ltrailer);
-                    //			btnMovie.appendChild(lmovie);
-                    btnBack.appendChild(lback);
+                divAsset.appendChild(title);
+                divAsset.appendChild(infos);
+                divAsset.appendChild(synopsis);
 
-                    btnBar.appendChild(btnTrailer);
-                    //			btnBar.appendChild(btnMovie);
-                    btnBar.appendChild(btnBack);
+                var btnBar = document.createElement("div");
+                btnBar.setAttribute("class", "col-xs-12 col-md-12");
+
+                var btnTrailer = document.createElement("a");
+                //			var btnMovie = document.createElement("a");
+                var btnBack = document.createElement("a");
+
+                btnTrailer.setAttribute("class", "btn btn-success detailsBtn");
+                //		btnMovie.setAttribute("class", "green-sea-flat-button detailsBtn");
+                btnBack.setAttribute("class", "btn btn-success detailsBtn");
+
+                btnTrailer.setAttribute("href", "#trailer();");
+                //			btnMovie.setAttribute("href", "#movie()");
+                btnBack.setAttribute("onclick", "backToHub();");
 
 
-                    divAsset.appendChild(btnBar);
 
-                    document.getElementById("assetDetails").appendChild(div);
-                    document.getElementById("assetDetails").appendChild(divAsset);
-                
+                var ltrailer = document.createTextNode("Trailer");
+                //	var lmovie = document.createTextNode("Watch Now");
+                var lback = document.createTextNode("Back to Hub");
+
+                btnTrailer.appendChild(ltrailer);
+                //			btnMovie.appendChild(lmovie);
+                btnBack.appendChild(lback);
+
+                btnBar.appendChild(btnTrailer);
+                //			btnBar.appendChild(btnMovie);
+                btnBar.appendChild(btnBack);
+
+
+                divAsset.appendChild(btnBar);
+
+                document.getElementById("assetDetails").appendChild(div);
+                document.getElementById("assetDetails").appendChild(divAsset);
+
 
             },
                 function (failure) {
@@ -167,12 +167,24 @@ function detailAssets(Id) {
             //console.log(Id);
         });
 }
+function exitSearch() {
+    searchState = 0;
+    backToHub();
+}
 
 function backToHub() {
-    document.getElementById("popularMovies").style.display = 'block';
-    document.getElementById("recentMovies").style.display = 'block';
-    document.getElementById("searchMovies").style.display = 'none';
-    document.getElementById("assetDetails").style.display = 'none';
+    if (searchState == 0) {
+        document.getElementById("popularMovies").style.display = 'block';
+        document.getElementById("recentMovies").style.display = 'block';
+        document.getElementById("searchMovies").style.display = 'none';
+        document.getElementById("assetDetails").style.display = 'none';
+    }
+    else {
+        document.getElementById("popularMovies").style.display = 'none';
+        document.getElementById("recentMovies").style.display = 'none';
+        document.getElementById("searchMovies").style.display = 'block';
+        document.getElementById("assetDetails").style.display = 'none';
+    }
 }
 
 function searchEnter(e) {
@@ -189,6 +201,7 @@ function search() {
         elements[0].parentNode.removeChild(elements[0]);
     }
 
+    searchState = 1;
     require([
         "app/TmdbAPI",
         "dojo/promise/all"
@@ -207,6 +220,24 @@ function search() {
 
                 getMoviesData(success.results, tmdb, part);
 
+                //<button class="btn btn-success" onclick="exitSearch()">Back</button>
+                
+                var element = document.getElementById("searchExit");
+                if (element) {
+                    element.outerHTML = "";
+                    delete element;
+                }
+                var btn = document.createElement("btn");
+
+                btn.setAttribute("id", "searchExit");
+                btn.setAttribute("class", "btn btn-lg btn-primary animated fadeIn");
+
+                btn.setAttribute("onclick", "exitSearch()");
+
+                btn.innerHTML = "Back to Home";
+                  document.getElementById(part).innerHTML += "<br>";
+                document.getElementById(part).appendChild(btn);
+
 
                 document.getElementById("popularMovies").style.display = 'none';
                 document.getElementById("recentMovies").style.display = 'none';
@@ -218,9 +249,9 @@ function search() {
                 function (fail) {
 
                 }).then(function () {
-                    
-                $(".poster").removeClass("hided");
-                $(".poster").addClass("fadeIn"); 
+
+                    $(".poster").removeClass("hided");
+                    $(".poster").addClass("fadeIn");
                 });
         });
 
@@ -236,42 +267,42 @@ function getMoviesData(success, tmdbAPI, part) {
             
             //var arrayMovies = [];
             //   var arrayLink = [];
-       var nb_poster = 0;
+            var nb_poster = 0;
             // ------ BEGINING FUNCTION ---- //
             for (var i = 0; i != success.length; i++) {
 
 
 
-                    if (success[i].poster_path) {
+                if (success[i].poster_path) {
 
-                        var div = document.createElement("div");
-                        var link = document.createElement("a");
-                        var elem = document.createElement("img");
+                    var div = document.createElement("div");
+                    var link = document.createElement("a");
+                    var elem = document.createElement("img");
 
-                        div.setAttribute("id", "poster" + i);
-                        div.setAttribute("class", "poster animated hided");
+                    div.setAttribute("id", "poster" + i);
+                    div.setAttribute("class", "poster animated hided");
 
-                        link.setAttribute("onclick", "detailAssets(\"" + success[i].title + "\");");
-                        
-                        elem.setAttribute("class", "img-responsive");
-                        elem.setAttribute("src", UrlImg + "w185/" + success[i].poster_path + "?api_key=" + api_key);
-                        link.appendChild(elem);
+                    link.setAttribute("onclick", "detailAssets(\"" + success[i].title + "\");");
 
-                        div.appendChild(link);
+                    elem.setAttribute("class", "img-responsive");
+                    elem.setAttribute("src", UrlImg + "w185/" + success[i].poster_path + "?api_key=" + api_key);
+                    link.appendChild(elem);
+
+                    div.appendChild(link);
 
 
-                        document.getElementById(part).appendChild(div);
-                        nb_poster++;    
+                    document.getElementById(part).appendChild(div);
+                    nb_poster++;
                     if (nb_poster == 12)
                         break;
-                    }
-                    
                 }
-             
 
-            });
-
-       
-          
             }
+
+
+        });
+
+
+
+}
 
