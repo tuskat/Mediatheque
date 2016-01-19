@@ -10,10 +10,8 @@ A bet.
 
 ## TO-DO
 
-Estimated progression : 15%
+Estimated progression : 25%
 
-- Fix the workflow
-- Migrate to a responsive interface
 - Add more options
 - Interface tweaks
 - Add trailers 
@@ -21,5 +19,5 @@ Estimated progression : 15%
 
 ## Useful Links
 
-See the project online : http://cedricmarcell.in/mediatusk/
-TMDB API : http://docs.themoviedb.apiary.io/#
+- See the project online : http://cedricmarcell.in/mediatusk/
+- TMDB API : http://docs.themoviedb.apiary.io/#
