@@ -163,7 +163,7 @@ ul li:hover ul {
     opacity: 0.5;
    z-index: 1;
 }
-
+/*
 .poster img {
   
   
@@ -171,7 +171,7 @@ ul li:hover ul {
   z-index:-1;
   display:block;   
 }
-
+*/
 /*  Infos Page */
 
 .bigPoster {
@@ -180,20 +180,19 @@ ul li:hover ul {
     border-radius : 3px;
     margin : 10px;
     border: 2px solid #334C4C;
-    height : 300px;
-    width : 220px;
+   
     box-shadow : 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 .bigPoster img {
-   width: 100%;
+   width:auto;
 }
 
 .assetInfos {
   color : #E7E7E6;
-  position : absolute;
+  
   margin-top: 50px;
   top: 0;
- min-height : 500px;
+ width: auto;
   display: inline-block;
   overflow: hidden;
  
@@ -433,12 +432,47 @@ ul li:hover ul {
     right : 0; 
       background: #0F0F0A;
 }
-
-#topSearch {
-    margin-top:1em;
+@media (min-width: 420px) {
+.header-movie-form { 
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
 }
 
+
+
+}
 .hided {
     visibility: hidden;
+}
+
+
+@media (max-width: 420px) {
+   
+.hidden-xxs {
+    /* when your screen is too tiny*/
+    display: none;
+}
+}
+
+@media (max-width: 435px) {
+.poster {
+    width: 160px;
+}    
+}
+
+@media (min-width: 679px) {
+.assetInfos {
+    position : absolute;
+}
+}
+@media (max-width: 679px) {
+.bigPoster {
+    width : 100%;
+}
+
+.bigPoster img{
+    width : 99%;
+}
 }
 /* END */

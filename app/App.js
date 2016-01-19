@@ -3,7 +3,7 @@ var Url = "https://api.themoviedb.org/3/";
 var UrlImg = "http://image.tmdb.org/t/p/";
 var api_key = "ac4cb421007b24e9ae363523b72adb5a";
 
-var ThumbPoster = "/w185/";
+//var ThumbPoster = "/w185/";
 
 require(["app/TmdbAPI",
     "dojo/promise/all",
@@ -22,7 +22,7 @@ require(["app/TmdbAPI",
         }).then(function (success) {
 
             var partII = "recentMovies";
-            console.dir(success);
+          //  console.dir(success);
             getMoviesData(success.results, tmdb, partII);
 
 
@@ -79,7 +79,7 @@ function detailAssets(Id) {
                     div.appendChild(img);
 
                     var divAsset = document.createElement("div");
-                    divAsset.setAttribute("class", "assetInfos")
+                    divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6")
 
 
 
@@ -112,16 +112,19 @@ function detailAssets(Id) {
 
 
                     var synopsis = document.createElement("span");
-                    synopsis.setAttribute("class", "synopsis");
-                    synopsis.innerHTML = "<hr>" + movieData.results[0].overview;
-
+                    synopsis.setAttribute("class", "synopsis col-md-9 col-xs-12");
+                    
+                    if (movieData.results[0].overview.length > 2)
+                        synopsis.innerHTML = "<hr>" + movieData.results[0].overview;
+                    else
+                      synopsis.innerHTML = "<hr> no synopsis added yet.";
 
                     divAsset.appendChild(title);
                     divAsset.appendChild(infos);
                     divAsset.appendChild(synopsis);
 
                     var btnBar = document.createElement("div");
-                    btnBar.setAttribute("class", "col-md-4");
+                    btnBar.setAttribute("class", "col-xs-12 col-md-4");
 
                     var btnTrailer = document.createElement("a");
                     //			var btnMovie = document.createElement("a");
@@ -249,6 +252,8 @@ function getMoviesData(success, tmdbAPI, part) {
                         div.setAttribute("class", "poster animated hided");
 
                         link.setAttribute("onclick", "detailAssets(\"" + success[i].title + "\");");
+                        
+                        elem.setAttribute("class", "img-responsive");
                         elem.setAttribute("src", UrlImg + "w185/" + success[i].poster_path + "?api_key=" + api_key);
                         link.appendChild(elem);
 

@@ -16,7 +16,7 @@
 	<link href="bootstrap/css/prettify.css" rel="stylesheet">
 
 	<!-- Loading Drunken Parrot UI -->
-	<link href="css/drunken-parrot.css" rel="stylesheet">
+	<!--<link href="css/drunken-parrot.css" rel="stylesheet">
 	<!--<link href="css/docs.css" rel="stylesheet">-->
 	
 	<link rel="stylesheet" href="css/myStyle.css">
@@ -49,15 +49,18 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
      
         
-    <a class="navbar-brand" href="#" onClick="window.location.reload()" >MediaTusk</a>
-    
-    <div class="navbar-form navbar-left" role="search" id="topSearch">
-  <div class="form-group col-xs-8 col-md-8">
-    <input type="text" class="form-control" id="assetSearch" name="assetSearch" placeholder="Search Movies" onkeypress="return searchEnter(event)">
-  </div>
-  <button  type="button" class="btn btn-success" onclick="search()">Search</button>
-</div>
-  <p class="navbar-text navbar-right  hidden-xs">Welcome Guest!</p>
+    <a class="navbar-brand hidden-xxs" href="#" onClick="window.location.reload()" >MediaTusk</a>
+    <div class="navbar-form navbar-left ">
+   
+     
+    <input type="text" class="form-control header-movie-form" id="assetSearch" name="assetSearch" placeholder="Search Movies" onkeypress="return searchEnter(event)">
+  
+  <button onclick="search()  type="button" class="form-control btn btn-success header-movie-form" onclick="search()">Search</button> 
+  
+ </div>
+
+
+  <p class="navbar-text navbar-right hidden-xs hidden-xxs">Welcome Guest!</p>
     <!--
  <div class="navbar-header">
    <ul class="nav navbar-nav">
