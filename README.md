@@ -6,7 +6,8 @@ Mediatheque is a side project that use TMDBI API to lookup movies and show its i
 
 ## Motivation
 
-A bet.
+This app is a way to study Dojo Framework as well as doing a promise centered web-app.
+It is both for learning purpose and for fun.
 
 ## TO-DO
 
