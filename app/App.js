@@ -3,7 +3,7 @@ var Url = "https://api.themoviedb.org/3/";
 var UrlImg = "http://image.tmdb.org/t/p/";
 var api_key = "ac4cb421007b24e9ae363523b72adb5a";
 
-
+var ThumbPoster = "/w185/";
 
 require(["app/TmdbAPI",
     "dojo/promise/all",
@@ -12,101 +12,28 @@ require(["app/TmdbAPI",
         var tmdb = new TmdbAPI(Url, api_key);
 
         var popularMoviesPromise = tmdb.getPopularMovies(); // 3600, 20
-        var recentMoviesPromise = tmdb.getRecentMovies();
-        var popularMovies = null;    
-        var recentMovies = null;
-/*
-        popularMoviesPromise.then(function (success) {
-            // -- Affichage Posters --//
-            var part = "popularMovies";
-
-         popularMovies = getMoviesData(success, tmdb, part);
-        },
-            function (fail) {
-
-            });
-
-        recentMoviesPromise.then(function (success) {
-            // -- Affichage Posters --//
-            var part = "recentMovies";
-           recentMovies = getMoviesData(success, tmdb, part);
-        },
-            function (failure) {
-                console.log("error");
-            });
-*/
-
-  all([popularMoviesPromise, recentMoviesPromise]).then(function (success) {
       
-    //  console.dir(success);
-      
-                var partI = "popularMovies";  
-                var partII = "recentMovies";
-                
-                 getMoviesData(success[0].results, tmdb, partI);          
-                 getMoviesData(success[1].results, tmdb, partII);
-                 
-                 
-               
-             //   console.dir(popularMovies);          
-              
-              /*
-                moviesI.then(function (successI) {
-                console.dir(successI);   
-                 buildMoviePoster(successI, success[0].results, partI);
-             },
-            function (fail) {
-
-            });
-                
-                  moviesII.then(function (successII) {
-           
+          popularMoviesPromise.then(function (success) {
+            var partI = "popularMovies";
+            getMoviesData(success.results, tmdb, partI);
             
-                 buildMoviePoster(successII, success[1].results, partII);
-             },
-            function (fail) {
+           //  var recentMoviesPromise = tmdb.getRecentMovies();
+            return tmdb.getRecentMovies();
+        }).then(function (success) {
 
-            }); 
-                */
-            //    buildMoviePoster(moviesI, results[0], partI);
-            //    buildMoviePoster(moviesII, results[1], partII);
-                
-                //console.log(movies.length);
-                 /*
-                while (i != movies.length) {
-                    
-                    
-                   
-                    if (movies[i].posters.length != 0) {
-
-                        var div = document.createElement("div");
-                        var link = document.createElement("a");
-                        var elem = document.createElement("img");
-
-                        div.setAttribute("id", "poster" + i);
-                        div.setAttribute("class", "poster");
-                        link.setAttribute("onclick", "detailAssets(\"" + popularMoviesPromise.results[i].title + "\");");
-                        elem.setAttribute("src", UrlImg + "w154/" + movies[i].posters[0].file_path + "?api_key=" + api_key);
-                        link.appendChild(elem);
-                        div.appendChild(link);
-
-                        document.getElementById(part).appendChild(div);
-                       // nb_poster++;
-
-                    }
-                    if (nb_poster == 13)
-                        break;
-                    i++;
-                }
+            var partII = "recentMovies";
+            console.dir(success);
+            getMoviesData(success.results, tmdb, partII);
 
 
-            });
-*/
+        }).then(function (){
+            $(".poster").removeClass("hided");
+                //Not working yet
+            $(".poster").addClass("fadeIn");
+       });
+
 
     });
-     
-	 
-});
 // Insert a poster
 //	 require(["dojo/domReady!"],
 
@@ -123,7 +50,7 @@ function detailAssets(Id) {
 
             details = tmdbAPI.searchMovie(Id);
             details.then(function (success) {
-             //   console.dir(success);
+                //   console.dir(success);
                 document.getElementById("popularMovies").style.display = 'none';
                 document.getElementById("recentMovies").style.display = 'none';
                 document.getElementById("searchMovies").style.display = 'none';
@@ -137,17 +64,17 @@ function detailAssets(Id) {
 
                 var movieData = success;
 
-                var movie = tmdbAPI.getPoster(success.results[0].id, "movie");
-                movie.then(function (success) {
+            //    var movie = tmdbAPI.getPoster(success.results[0].id, "movie");
+               // movie.then(function (success) {
 
-                //    console.dir(movieData);
+                    //    console.dir(movieData);
                     var div = document.createElement("div");
                     //div.setAttribute("id", "poster");
                     div.setAttribute("class", "bigPoster");
 
                     var img = document.createElement("img");
                     img.setAttribute("class", "img-responsive");
-                    img.setAttribute("src", UrlImg + "original/" + success.posters[0].file_path + "?api_key=" + api_key);
+                    img.setAttribute("src", UrlImg + "w342/" + movieData.results[0].poster_path + "?api_key=" + api_key);
 
                     div.appendChild(img);
 
@@ -227,10 +154,7 @@ function detailAssets(Id) {
 
                     document.getElementById("assetDetails").appendChild(div);
                     document.getElementById("assetDetails").appendChild(divAsset);
-                },
-                    function (fail) {
-
-                    });
+                
 
             },
                 function (failure) {
@@ -244,106 +168,60 @@ function detailAssets(Id) {
 function backToHub() {
     document.getElementById("popularMovies").style.display = 'block';
     document.getElementById("recentMovies").style.display = 'block';
+    document.getElementById("searchMovies").style.display = 'none';
     document.getElementById("assetDetails").style.display = 'none';
 }
 
 function searchEnter(e) {
- if (e.keyCode == 13) {
-     search();
- }
+    if (e.keyCode == 13) {
+        search();
+    }
 }
 function search() {
-   
+
     var container = document.getElementById("searchMovies");
     var elements = container.getElementsByClassName("poster");
-    
+
     while (elements[0]) {
-     elements[0].parentNode.removeChild(elements[0]);
+        elements[0].parentNode.removeChild(elements[0]);
     }
 
-        require([
-            "app/TmdbAPI",
-            "dojo/promise/all"
-        ],
-            function (TmdbAPI, all) {
-                var tmdb = new TmdbAPI(Url, api_key);
+    require([
+        "app/TmdbAPI",
+        "dojo/promise/all"
+    ],
+        function (TmdbAPI, all) {
+            var tmdb = new TmdbAPI(Url, api_key);
 
 
-                var search = document.getElementById("assetSearch").value;
-                var searchedMovies = tmdb.searchMovie(search);
-                // console.log(search);
-                //console.log(myNode.innerHTML);
-                searchedMovies.then(function (success) {
-                    // -- Affichage Posters --//
-                    var part = "searchMovies";
+            var search = document.getElementById("assetSearch").value;
+            var searchedMovies = tmdb.searchMovie(search);
+            // console.log(search);
+            //console.log(myNode.innerHTML);
+            searchedMovies.then(function (success) {
+                // -- Affichage Posters --//
+                var part = "searchMovies";
 
-                    getMoviesData(success.results, tmdb, part);
+                getMoviesData(success.results, tmdb, part);
 
 
-                    document.getElementById("popularMovies").style.display = 'none';
-                    document.getElementById("recentMovies").style.display = 'none';
-                    document.getElementById("assetDetails").style.display = 'none';
-                    document.getElementById("searchMovies").style.display = 'block';
-                      
-                       $(".poster").removeClass("hided");
-                         $(".poster").addClass("fadeIn"); 
-                    //
-                },
-                    function (fail) {
+                document.getElementById("popularMovies").style.display = 'none';
+                document.getElementById("recentMovies").style.display = 'none';
+                document.getElementById("assetDetails").style.display = 'none';
+                document.getElementById("searchMovies").style.display = 'block';
 
-                    });
-            });
-    
+                //
+            },
+                function (fail) {
+
+                }).then(function () {
+                    
+                $(".poster").removeClass("hided");
+                $(".poster").addClass("fadeIn"); 
+                });
+        });
+
 }
-
-function buildMoviePoster(movies, moviesPromise, part)
-{
-
-  for (i = 0; i != movies.length; i++) {
-                    
-         if (movies[i].posters.length != 0) {
-
-
-                        var div = document.createElement("div");
-                        var link = document.createElement("a");
-                        var elem = document.createElement("img");
-
-                        div.setAttribute("id", "poster" + i);
-                        div.setAttribute("class", "poster");
-                        link.setAttribute("onclick", "detailAssets(\"" + moviesPromise.results[i].title  + "\");");
-                        elem.setAttribute("src", UrlImg + "w154/" + movies[i].posters[0].file_path + "?api_key=" + api_key);
-                        link.appendChild(elem);
-                        div.appendChild(link);
-
-                        document.getElementById(part).appendChild(div);
-                       // nb_poster++;
-
-                    }
-                    
-                    /*
-                    if (movies[i].posters.length != 0) {
-
-                        var div = document.createElement("div");
-                        var link = document.createElement("a");
-                        var elem = document.createElement("img");
-
-                        div.setAttribute("id", "poster" + i);
-                        div.setAttribute("class", "poster");
-                        link.setAttribute("onclick", "detailAssets(\"" + popularMoviesPromise.results[i].title + "\");");
-                        elem.setAttribute("src", UrlImg + "w154/" + movies[i].posters[0].file_path + "?api_key=" + api_key);
-                        link.appendChild(elem);
-                        div.appendChild(link);
-
-                        document.getElementById(part).appendChild(div);
-                       // nb_poster++;
-
-                    }*/
-                  /*  if (nb_poster == 13)
-                        break;*/
-                //    i++;
-                }
-    
-        }
 
 function getMoviesData(success, tmdbAPI, part) {
     require([
@@ -351,68 +229,44 @@ function getMoviesData(success, tmdbAPI, part) {
         "dojo/promise/all"
     ],
         function (TmdbAPI, all) {
-           // console.dir(success);
+            // console.dir(success);
             
-            var arrayMovies = [];
+            //var arrayMovies = [];
             //   var arrayLink = [];
-    
+       var nb_poster = 0;
             // ------ BEGINING FUNCTION ---- //
             for (var i = 0; i != success.length; i++) {
-                  var data = success;
-                var movie = tmdbAPI.getPoster(success[i].id, "movie");
-               
-                //   movie.title = data.results[i].title;
-                // console.dir(movie);
-                arrayMovies.push(movie);
-                //     arrayLink.push(data.results[i].title);
-          
-            }
-            
- 
-            all(arrayMovies).then(function (movies) {
-  //      return movies;
-
-console.log(part);
 
 
-                var i = 0;
-                var nb_poster = 0;
-               // console.log(movies.length);
-                while (i != movies.length) {
 
-                    if (movies[i].posters.length != 0) {
+                    if (success[i].poster_path) {
 
                         var div = document.createElement("div");
                         var link = document.createElement("a");
                         var elem = document.createElement("img");
 
                         div.setAttribute("id", "poster" + i);
-                        div.setAttribute("class", "poster animate hided");
-                         
+                        div.setAttribute("class", "poster animated hided");
+
                         link.setAttribute("onclick", "detailAssets(\"" + success[i].title + "\");");
-                        elem.setAttribute("src", UrlImg + "w154/" + movies[i].posters[0].file_path + "?api_key=" + api_key);
+                        elem.setAttribute("src", UrlImg + "w185/" + success[i].poster_path + "?api_key=" + api_key);
                         link.appendChild(elem);
-                        
+
                         div.appendChild(link);
-                        
-                            
+
+
                         document.getElementById(part).appendChild(div);
-                        nb_poster++;
-                       
-                    }
-                    if (nb_poster == 14)
+                        nb_poster++;    
+                    if (nb_poster == 12)
                         break;
-                    i++;
+                    }
+                    
                 }
-             $(".poster").removeClass("hided");
-             //Not working yet
-             $(".poster").addClass("fadeIn"); 
+             
 
             });
 
-     //   });
-    // ---- END ----
-    }); 
-        
-}     
-    
+       
+          
+            }
+
