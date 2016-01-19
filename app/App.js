@@ -79,7 +79,7 @@ function detailAssets(Id) {
                     div.appendChild(img);
 
                     var divAsset = document.createElement("div");
-                    divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6")
+                    divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6 animated fadeIn")
 
 
 
@@ -112,7 +112,7 @@ function detailAssets(Id) {
 
 
                     var synopsis = document.createElement("span");
-                    synopsis.setAttribute("class", "synopsis col-md-9 col-xs-12");
+                    synopsis.setAttribute("class", "synopsis col-xs-12 col-md-9 ");
                     
                     if (movieData.results[0].overview.length > 2)
                         synopsis.innerHTML = "<hr>" + movieData.results[0].overview;
@@ -124,7 +124,7 @@ function detailAssets(Id) {
                     divAsset.appendChild(synopsis);
 
                     var btnBar = document.createElement("div");
-                    btnBar.setAttribute("class", "col-xs-12 col-md-4");
+                    btnBar.setAttribute("class", "col-xs-12 col-md-12");
 
                     var btnTrailer = document.createElement("a");
                     //			var btnMovie = document.createElement("a");
