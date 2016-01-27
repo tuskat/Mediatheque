@@ -23,8 +23,14 @@
 //REQUESTS
  getTMDBJson : function(Url, arg, api_key)
 {
-//console.log(Url + arguments + "&api_key=" + api_key);
-  return(script.get(Url + arg + "&api_key=" + api_key, {
+var api_arg;
+
+if (arg.indexOf("?") > -1)
+ api_arg = "&api_key=";    
+else
+ api_arg = "?api_key=";
+ 
+  return(script.get(Url + arg + api_arg + api_key, {
     jsonp: "callback", 
   }).then(function(response){
     
@@ -44,6 +50,8 @@
   }));
   
 },
+
+/*
 // -- Obsolete
  getTMDBPictureJson : function(Url, arg, api_key)
 {
@@ -67,16 +75,18 @@
   
 
 },
-    
+*/   
     
 //MOVIES    
 
 getMoviesById : function(movieId)
 {
-   var argument = "find/" + movieId + "?external_source=imdb_id";
+   var argument = "movie/" + movieId;
    var result;
    
-  
+  //movie/12205?api_key=ac4cb421007b24e9ae363523b72adb5a
+  //find/296098?external_source=imdb_id
+  //console.log(argument);
   result = this.getTMDBJson(this.url, argument, this.key);  
   return(result);
 },
@@ -118,6 +128,8 @@ getRecentMovies : function() {
   };
 
 var d = new Date();
+//Get the last 2 days of new movies
+//d.setDate(d.getDate() - 3);
 var now = d.yyyymmdd();
 
 //console.log(now);

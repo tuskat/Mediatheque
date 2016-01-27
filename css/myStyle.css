@@ -160,6 +160,7 @@ h1 {
 }
 #assetDetails {
   min-height : 500px;
+  display : none;
   
 }
 /* Header/Footer */

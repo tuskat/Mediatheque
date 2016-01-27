@@ -3,6 +3,7 @@ var Url = "https://api.themoviedb.org/3/";
 var UrlImg = "http://image.tmdb.org/t/p/";
 var api_key = "ac4cb421007b24e9ae363523b72adb5a";
 var searchState = 0;
+
 //var ThumbPoster = "/w185/";
 
 require(["app/TmdbAPI",
@@ -48,9 +49,10 @@ function detailAssets(Id) {
             var tmdbAPI = new TmdbAPI(Url, api_key);
             var details;
 
-            details = tmdbAPI.searchMovie(Id);
+            //details = tmdbAPI.searchMovie(Id);
+            details = tmdbAPI.getMoviesById(Id);
             details.then(function (success) {
-                //   console.dir(success);
+                //  console.dir(success);
                 document.getElementById("popularMovies").style.display = 'none';
                 document.getElementById("recentMovies").style.display = 'none';
                 document.getElementById("searchMovies").style.display = 'none';
@@ -74,17 +76,17 @@ function detailAssets(Id) {
 
                 var img = document.createElement("img");
                 img.setAttribute("class", "img-responsive");
-                img.setAttribute("src", UrlImg + "w342/" + movieData.results[0].poster_path + "?api_key=" + api_key);
-
+                // img.setAttribute("src", UrlImg + "w342/" + movieData.results[0].poster_path + "?api_key=" + api_key);
+                img.setAttribute("src", UrlImg + "w342/" + movieData.poster_path + "?api_key=" + api_key);
                 div.appendChild(img);
 
                 var divAsset = document.createElement("div");
-                divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6 animated fadeIn")
+                divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6 animated fadeIn");
 
 
 
                 var title = document.createElement("h2");
-                title.innerHTML = movieData.results[0].title;
+                title.innerHTML = movieData.title;
 			
 			
                 //title = document.innerHTML(movieData.results[0].title);
@@ -92,7 +94,7 @@ function detailAssets(Id) {
                 var infos = document.createElement("span");
 
 
-                var d = new Date(movieData.results[0].release_date);
+                var d = new Date(movieData.release_date);
 
                 var date = d.getDate();
                 var month = d.getMonth() + 1; //Months are zero based
@@ -108,14 +110,23 @@ function detailAssets(Id) {
                 if (month < 10)
                     after = "/0";
 
-                infos.innerHTML = before + date + after + month + "/" + year + "<br>";
+
+                infos.innerHTML = "Genre : ";
+                for (var i = 0; i != movieData.genres.length; i++)
+                {
+                    infos.innerHTML += movieData.genres[i].name;
+                    if (i != (movieData.genres.length - 1))
+                        infos.innerHTML += "/";
+                }       
+                        infos.innerHTML += "<br>Release date : "; 
+                infos.innerHTML += before + date + after + month + "/" + year + "<br>";
 
 
                 var synopsis = document.createElement("span");
                 synopsis.setAttribute("class", "synopsis col-xs-12 col-md-9 ");
 
-                if (movieData.results[0].overview.length > 2)
-                    synopsis.innerHTML = "<hr>" + movieData.results[0].overview;
+                if (movieData.overview.length > 2)
+                    synopsis.innerHTML = "<hr>" + movieData.overview;
                 else
                     synopsis.innerHTML = "<hr> no synopsis added yet.";
 
@@ -126,30 +137,30 @@ function detailAssets(Id) {
                 var btnBar = document.createElement("div");
                 btnBar.setAttribute("class", "col-xs-12 col-md-12");
 
-                var btnTrailer = document.createElement("a");
+                //          var btnTrailer = document.createElement("a");
                 //			var btnMovie = document.createElement("a");
                 var btnBack = document.createElement("a");
 
-                btnTrailer.setAttribute("class", "btn btn-success detailsBtn");
+                //       btnTrailer.setAttribute("class", "btn btn-success detailsBtn");
                 //		btnMovie.setAttribute("class", "green-sea-flat-button detailsBtn");
                 btnBack.setAttribute("class", "btn btn-success detailsBtn");
 
-                btnTrailer.setAttribute("href", "#trailer();");
+                //           btnTrailer.setAttribute("href", "#trailer();");
                 //			btnMovie.setAttribute("href", "#movie()");
                 btnBack.setAttribute("onclick", "backToHub();");
 
 
 
-                var ltrailer = document.createTextNode("Trailer");
+                //   var ltrailer = document.createTextNode("Trailer");
                 //	var lmovie = document.createTextNode("Watch Now");
                 var lback = document.createTextNode("Back to Hub");
 
-                btnTrailer.appendChild(ltrailer);
+                //          btnTrailer.appendChild(ltrailer);
                 //			btnMovie.appendChild(lmovie);
                 btnBack.appendChild(lback);
 
-                btnBar.appendChild(btnTrailer);
-                //			btnBar.appendChild(btnMovie);
+                //            btnBar.appendChild(btnTrailer);
+                //			  btnBar.appendChild(btnMovie);
                 btnBar.appendChild(btnBack);
 
 
@@ -235,7 +246,7 @@ function search() {
                 btn.setAttribute("onclick", "exitSearch()");
 
                 btn.innerHTML = "Back to Home";
-                  document.getElementById(part).innerHTML += "<br>";
+                document.getElementById(part).innerHTML += "<br>";
                 document.getElementById(part).appendChild(btn);
 
 
@@ -263,7 +274,7 @@ function getMoviesData(success, tmdbAPI, part) {
         "dojo/promise/all"
     ],
         function (TmdbAPI, all) {
-            // console.dir(success);
+            
             
             //var arrayMovies = [];
             //   var arrayLink = [];
@@ -274,7 +285,8 @@ function getMoviesData(success, tmdbAPI, part) {
 
 
                 if (success[i].poster_path) {
-
+                    
+                    //  console.dir(success[i]);
                     var div = document.createElement("div");
                     var link = document.createElement("a");
                     var elem = document.createElement("img");
@@ -282,7 +294,7 @@ function getMoviesData(success, tmdbAPI, part) {
                     div.setAttribute("id", "poster" + i);
                     div.setAttribute("class", "poster animated hided");
 
-                    link.setAttribute("onclick", "detailAssets(\"" + success[i].title + "\");");
+                    link.setAttribute("onclick", "detailAssets(\"" + success[i].id + "\");");
 
                     elem.setAttribute("class", "img-responsive");
                     elem.setAttribute("src", UrlImg + "w185/" + success[i].poster_path + "?api_key=" + api_key);
