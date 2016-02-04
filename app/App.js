@@ -3,8 +3,8 @@ var Url = "https://api.themoviedb.org/3/";
 var UrlImg = "http://image.tmdb.org/t/p/";
 var api_key = "ac4cb421007b24e9ae363523b72adb5a";
 var searchState = 0;
+var homePageLimit = 12;
 
-//var ThumbPoster = "/w185/";
 
 require(["app/TmdbAPI",
     "dojo/promise/all",
@@ -12,32 +12,27 @@ require(["app/TmdbAPI",
 			 function (TmdbAPI, all) {
         var tmdb = new TmdbAPI(Url, api_key);
 
-        var popularMoviesPromise = tmdb.getPopularMovies(); // 3600, 20
-      
+        var popularMoviesPromise = tmdb.getPopularMovies();
+
         popularMoviesPromise.then(function (success) {
             var partI = "popularMovies";
-            getMoviesData(success.results, tmdb, partI);
-            
-            //  var recentMoviesPromise = tmdb.getRecentMovies();
+            getMoviesData(success.results, tmdb, partI, homePageLimit);
+
             return tmdb.getRecentMovies();
         }).then(function (success) {
 
             var partII = "recentMovies";
             //  console.dir(success);
-            getMoviesData(success.results, tmdb, partII);
+            getMoviesData(success.results, tmdb, partII, homePageLimit);
 
 
         }).then(function () {
             $(".poster").removeClass("hided");
-            //Not working yet
             $(".poster").addClass("fadeIn");
         });
 
 
     });
-// Insert a poster
-//	 require(["dojo/domReady!"],
-
 
 function detailAssets(Id) {
 
@@ -49,10 +44,9 @@ function detailAssets(Id) {
             var tmdbAPI = new TmdbAPI(Url, api_key);
             var details;
 
-            //details = tmdbAPI.searchMovie(Id);
+          
             details = tmdbAPI.getMoviesById(Id);
             details.then(function (success) {
-                //  console.dir(success);
                 document.getElementById("popularMovies").style.display = 'none';
                 document.getElementById("recentMovies").style.display = 'none';
                 document.getElementById("searchMovies").style.display = 'none';
@@ -66,33 +60,21 @@ function detailAssets(Id) {
 
                 var movieData = success;
 
-                //    var movie = tmdbAPI.getPoster(success.results[0].id, "movie");
-                // movie.then(function (success) {
-
-                //    console.dir(movieData);
                 var div = document.createElement("div");
-                //div.setAttribute("id", "poster");
                 div.setAttribute("class", "bigPoster");
 
                 var img = document.createElement("img");
                 img.setAttribute("class", "img-responsive");
-                // img.setAttribute("src", UrlImg + "w342/" + movieData.results[0].poster_path + "?api_key=" + api_key);
                 img.setAttribute("src", UrlImg + "w342/" + movieData.poster_path + "?api_key=" + api_key);
                 div.appendChild(img);
 
                 var divAsset = document.createElement("div");
                 divAsset.setAttribute("class", "assetInfos col-xs-12 co-md-6 animated fadeIn");
 
-
-
                 var title = document.createElement("h2");
                 title.innerHTML = movieData.title;
 			
-			
-                //title = document.innerHTML(movieData.results[0].title);
-			
-                var infos = document.createElement("span");
-
+		       var infos = document.createElement("span");
 
                 var d = new Date(movieData.release_date);
 
@@ -112,22 +94,25 @@ function detailAssets(Id) {
 
 
                 infos.innerHTML = "Genre : ";
-                for (var i = 0; i != movieData.genres.length; i++)
-                {
+                for (var i = 0; i != movieData.genres.length; i++) {
                     infos.innerHTML += movieData.genres[i].name;
                     if (i != (movieData.genres.length - 1))
                         infos.innerHTML += "/";
-                }       
-                        infos.innerHTML += "<br>Release date : "; 
+                }
+                infos.innerHTML += "<br>Release date : ";
                 infos.innerHTML += before + date + after + month + "/" + year + "<br>";
 
-
+                var isSynopsis = false;
                 var synopsis = document.createElement("span");
                 synopsis.setAttribute("class", "synopsis col-xs-12 col-md-9 ");
 
-                if (movieData.overview.length > 2)
-                    synopsis.innerHTML = "<hr>" + movieData.overview;
-                else
+                if (movieData.overview != null) {
+                    if (movieData.overview.length > 2) {
+                        synopsis.innerHTML = "<hr>" + movieData.overview;
+                        isSynopsis = true;
+                    }
+                }
+                if (isSynopsis == false)
                     synopsis.innerHTML = "<hr> no synopsis added yet.";
 
                 divAsset.appendChild(title);
@@ -174,8 +159,6 @@ function detailAssets(Id) {
                 function (failure) {
                     console.log("error");
                 });
-		
-            //console.log(Id);
         });
 }
 function exitSearch() {
@@ -268,16 +251,16 @@ function search() {
 
 }
 
-function getMoviesData(success, tmdbAPI, part) {
+function getMoviesData(success, tmdbAPI, part, limit) {
     require([
         "app/TmdbAPI",
         "dojo/promise/all"
     ],
         function (TmdbAPI, all) {
-            
-            
-            //var arrayMovies = [];
-            //   var arrayLink = [];
+
+            if (limit === undefined)
+                limit = -1;
+
             var nb_poster = 0;
             // ------ BEGINING FUNCTION ---- //
             for (var i = 0; i != success.length; i++) {
@@ -305,7 +288,7 @@ function getMoviesData(success, tmdbAPI, part) {
 
                     document.getElementById(part).appendChild(div);
                     nb_poster++;
-                    if (nb_poster == 12)
+                    if (nb_poster == limit)
                         break;
                 }
 
